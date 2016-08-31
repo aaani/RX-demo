@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+<script src="node_modules/@reactivex/rxjs/dist/global/Rx.umd.js"></script>
+ <button type="button" id="buttonPlusOne">+1</button>
+ <button type="button" id="buttonMinusOne">-1</button>
+ <h2 id="result"></h2>
+</body>
+</html>
+
+<!--<script>
+
+  var result = document.getElementById('result');
+
+var buttonPlus = document.getElementById('buttonPlusOne');
+var observable1 = Rx.Observable.fromEvent(buttonPlus, 'click').mapTo(1);
+
+var buttonMinus = document.getElementById('buttonMinusOne');
+var observable2 = Rx.Observable.fromEvent(buttonMinus, 'click').mapTo(-1);
+
+var mergedObservable = Rx.Observable.merge(observable1, observable2);
+
+mergedObservable
+  .scan((count,val) => count + val, 0)
+  .subscribe(count => result.innerText = 'Clicked '+count+' times');
+
+</script>-->
+<script>
+Rx.Observable.merge(
+  Rx.Observable.fromEvent(document.getElementById('buttonPlusOne'), 'click').mapTo(1), 
+  Rx.Observable.fromEvent(document.getElementById('buttonMinusOne'), 'click').mapTo(-1))
+    .scan((count,val) => count + val, 0)
+    .subscribe(count => document.getElementById('result').innerText = 'Value = '+count);
+
+</script>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+<script src="node_modules/@reactivex/rxjs/dist/global/Rx.umd.js"></script>
+ <!-- <div id="minion"><img src="http://i2.mirror.co.uk/incoming/article6379795.ece/ALTERNATES/s615b/Minion.jpg" height=100 /></div> -->
+ <label for="search-query">Search query:</label> <input name="search-query"></input>
+ <div id="result"></div>
+</body>
+</html>
+
+<!--<script>
+
+  var result = document.getElementById('result');
+
+var buttonPlus = document.getElementById('buttonPlusOne');
+var observable1 = Rx.Observable.fromEvent(buttonPlus, 'click').mapTo(1);
+
+var buttonMinus = document.getElementById('buttonMinusOne');
+var observable2 = Rx.Observable.fromEvent(buttonMinus, 'click').mapTo(-1);
+
+var mergedObservable = Rx.Observable.merge(observable1, observable2);
+
+mergedObservable
+  .scan((count,val) => count + val, 0)
+  .subscribe(count => result.innerText = 'Clicked '+count+' times');
+
+</script>-->
+<!-- <script>
+// Rx.Observable.merge(
+//   Rx.Observable.fromEvent(document.getElementById('buttonPlusOne'), 'click').mapTo(1),
+//   Rx.Observable.fromEvent(document.getElementById('buttonMinusOne'), 'click').mapTo(-1))
+//     .scan((count,val) => count + val, 0)
+//     .subscribe(count => document.getElementById('result').innerText = 'Value = '+count);
+
+var mouseDown = Rx.Observable.fromEvent(document.getElementById('minion'), 'mousedown');
+var mouseUp = Rx.Observable.fromEvent(document.getElementById('minion'), 'mouseup');
+var mouseMove = Rx.Observable.fromEvent(document.getElementById('minion'), 'mousemove');
+
+var mouseDrag = mouseDown.flatMap(function(){
+  return mouseMove
+        .filter(x => x.movementX !== 0 || x.movementY !== 0)
+        .takeUntil(mouseUp)
+        // .take(1)
+
+        ;
+})
+.mapTo(function(){
+          console.log(arguments);
+          return 1;
+        })
+// .map(function(movePoint) {
+//             console.log(movePoint);
+// 							return {
+// 								pageX: movePoint.pageX - contactPoint.offsetX,
+// 								pageY: movePoint.pageY - contactPoint.offsetY
+// 							};
+// 						});
+
+mouseDrag.mapTo(1)
+      .scan((count) => count + 1, 0)
+      .subscribe(count => document.getElementById('result').innerText = 'Value = '+count);
+
+</script> -->
+
+<script>
+
+// typing "hello world"
+var input = Rx.Observable.fromEvent(document.querySelector('input'), 'keypress');
+
+// Filter out target values less than 3 characters long
+input.filter(event => event.target.value.length > 2)
+  .subscribe(event => console.log(event.target.value));
+
+
+// var inputEl = document.querySelector('input');
+//
+// inputEl.addEventListener("keydown", event => {
+//   if(event.target.value.length > 3){
+//     console.log(event.target.value);
+//   }
+// });
+
+
+  ["fabien", "ani", "rob", "fabiano"]
+      .filter(value => value.length > 3)
+      .forEach(value => console.log(value));
+
+
+
+      // var stream_of_input_values =
+      //     ["C","Ch","Chi","Chic","Chica",.........];
+      // var stream_of_eligible_values =
+      //     stream_of_input_values
+      //       .filter(event => event.target.value.length > 2);
+      //do something with stream_of_eligible_values now
+
+
+</script>
